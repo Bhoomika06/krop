@@ -55,4 +55,4 @@ class OverlayView(context: Context, @OverlayShape private val shape: Int) : View
 annotation class OverlayShape
 
 const val SHAPE_OVAL = 0
-const val SHAPE_RECT = 0
+const val SHAPE_RECT = 1
