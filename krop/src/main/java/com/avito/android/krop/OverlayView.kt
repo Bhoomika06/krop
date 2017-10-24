@@ -7,9 +7,10 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
+import android.support.annotation.IntDef
 import android.view.View
 
-class OverlayView(context: Context) : View(context) {
+class OverlayView(context: Context, @OverlayShape private val shape: Int) : View(context) {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -41,7 +42,17 @@ class OverlayView(context: Context) : View(context) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas.drawOval(viewport, paint)
+        when (shape) {
+            SHAPE_OVAL -> canvas.drawOval(viewport, paint)
+            else -> canvas.drawRect(viewport, paint)
+        }
     }
 
 }
+
+@IntDef(SHAPE_OVAL.toLong(), SHAPE_RECT.toLong())
+@Retention(AnnotationRetention.SOURCE)
+annotation class OverlayShape
+
+const val SHAPE_OVAL = 0
+const val SHAPE_RECT = 0
